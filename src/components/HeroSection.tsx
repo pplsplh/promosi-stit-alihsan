@@ -73,6 +73,170 @@ function Arabesque({ size, color = 'currentColor' }: { size: number; color?: str
   );
 }
 
+/* ── Art Nouveau decorative components ── */
+
+function MuchaFlower({ x, cy, scale = 1, opacity = 0.55, flip = false }: {
+  x: number; cy: number; scale?: number; opacity?: number; flip?: boolean;
+}) {
+  const g = `scale(${flip ? -scale : scale}, ${scale}) translate(${flip ? -(x * 2 + 80) : 0}, 0)`;
+  return (
+    <g transform={g} opacity={opacity}>
+      {/* stem */}
+      <path d={`M${x + 40},${cy + 60} C${x + 38},${cy + 20} ${x + 42},${cy - 20} ${x + 40},${cy - 60}`}
+        stroke="#C9A84C" strokeWidth="1.2" fill="none" />
+      {/* leaves */}
+      <path d={`M${x + 40},${cy} C${x + 20},${cy - 18} ${x + 8},${cy - 8} ${x + 14},${cy + 4}`}
+        stroke="#C9A84C" strokeWidth="0.9" fill="rgba(201,168,76,0.08)" />
+      <path d={`M${x + 40},${cy - 24} C${x + 58},${cy - 40} ${x + 68},${cy - 28} ${x + 60},${cy - 16}`}
+        stroke="#C9A84C" strokeWidth="0.9" fill="rgba(201,168,76,0.08)" />
+      {/* bloom petals */}
+      {[0,60,120,180,240,300].map((deg, i) => {
+        const rad = (deg * Math.PI) / 180;
+        const px = x + 40 + Math.cos(rad) * 14;
+        const py = cy - 60 + Math.sin(rad) * 14;
+        return (
+          <ellipse key={i} cx={px} cy={py}
+            rx="6" ry="9"
+            transform={`rotate(${deg}, ${px}, ${py})`}
+            fill="rgba(201,168,76,0.18)" stroke="#C9A84C" strokeWidth="0.7" />
+        );
+      })}
+      {/* bloom center */}
+      <circle cx={x + 40} cy={cy - 60} r="5" fill="rgba(201,168,76,0.45)" stroke="#C9A84C" strokeWidth="0.8" />
+      <circle cx={x + 40} cy={cy - 60} r="2.5" fill="#C9A84C" />
+      {/* small buds */}
+      <ellipse cx={x + 22} cy={cy - 44} rx="4" ry="6"
+        transform={`rotate(-30, ${x + 22}, ${cy - 44})`}
+        fill="rgba(201,168,76,0.2)" stroke="#C9A84C" strokeWidth="0.7" />
+      <ellipse cx={x + 56} cy={cy - 36} rx="4" ry="6"
+        transform={`rotate(20, ${x + 56}, ${cy - 36})`}
+        fill="rgba(201,168,76,0.2)" stroke="#C9A84C" strokeWidth="0.7" />
+    </g>
+  );
+}
+
+function MuchaArch() {
+  return (
+    <svg
+      viewBox="0 0 900 420"
+      preserveAspectRatio="xMidYMid meet"
+      className="absolute pointer-events-none"
+      style={{ top: 60, left: '50%', transform: 'translateX(-50%)', width: '92%', maxWidth: 900, opacity: 0.55, zIndex: 1 }}
+    >
+      {/* outer arch */}
+      <path d="M 120,400 L 120,200 Q 120,60 450,60 Q 780,60 780,200 L 780,400"
+        fill="none" stroke="#C9A84C" strokeWidth="1.5" />
+      {/* inner arch */}
+      <path d="M 150,400 L 150,210 Q 150,100 450,100 Q 750,100 750,210 L 750,400"
+        fill="none" stroke="#C9A84C" strokeWidth="0.7" strokeDasharray="4,6" />
+
+      {/* top center medallion */}
+      <circle cx="450" cy="62" r="18" fill="rgba(201,168,76,0.12)" stroke="#C9A84C" strokeWidth="1.2" />
+      <circle cx="450" cy="62" r="10" fill="rgba(201,168,76,0.22)" stroke="#C9A84C" strokeWidth="0.8" />
+      {[0,45,90,135,180,225,270,315].map((d, i) => {
+        const r = (d * Math.PI) / 180;
+        return <line key={i} x1={450 + Math.cos(r) * 10} y1={62 + Math.sin(r) * 10}
+          x2={450 + Math.cos(r) * 17} y2={62 + Math.sin(r) * 17}
+          stroke="#C9A84C" strokeWidth="0.8" />;
+      })}
+
+      {/* left pillar top ornament */}
+      <circle cx="120" cy="200" r="10" fill="rgba(201,168,76,0.15)" stroke="#C9A84C" strokeWidth="1" />
+      <circle cx="120" cy="200" r="5" fill="rgba(201,168,76,0.3)" />
+      {/* right pillar top ornament */}
+      <circle cx="780" cy="200" r="10" fill="rgba(201,168,76,0.15)" stroke="#C9A84C" strokeWidth="1" />
+      <circle cx="780" cy="200" r="5" fill="rgba(201,168,76,0.3)" />
+
+      {/* horizontal rule lines */}
+      <line x1="120" y1="380" x2="320" y2="380" stroke="#C9A84C" strokeWidth="0.7" opacity="0.6" />
+      <line x1="580" y1="380" x2="780" y2="380" stroke="#C9A84C" strokeWidth="0.7" opacity="0.6" />
+      <line x1="120" y1="376" x2="240" y2="376" stroke="#C9A84C" strokeWidth="0.4" opacity="0.4" />
+      <line x1="660" y1="376" x2="780" y2="376" stroke="#C9A84C" strokeWidth="0.4" opacity="0.4" />
+
+      {/* arch dot chain */}
+      {[0.15, 0.3, 0.45, 0.55, 0.7, 0.85].map((t, i) => {
+        const angle = Math.PI + t * Math.PI;
+        const cx = 450 + Math.cos(angle) * 330;
+        const cy2 = 200 + Math.sin(angle) * 140 - 80;
+        return <circle key={i} cx={cx} cy={cy2} r="2" fill="#C9A84C" opacity="0.5" />;
+      })}
+
+      {/* flowers on arch */}
+      <MuchaFlower x={60} cy={280} scale={0.9} opacity={0.6} />
+      <MuchaFlower x={760} cy={280} scale={0.9} opacity={0.6} flip />
+
+      {/* corner small florals */}
+      <MuchaFlower x={180} cy={340} scale={0.55} opacity={0.45} />
+      <MuchaFlower x={640} cy={340} scale={0.55} opacity={0.45} flip />
+    </svg>
+  );
+}
+
+function MuchaSidePanel({ side }: { side: 'left' | 'right' }) {
+  const isLeft = side === 'left';
+  return (
+    <svg
+      viewBox="0 0 120 600"
+      preserveAspectRatio="xMidYMid meet"
+      className="absolute pointer-events-none hidden lg:block"
+      style={{
+        top: '10%',
+        [isLeft ? 'left' : 'right']: '1%',
+        width: 'clamp(60px, 7vw, 110px)',
+        height: 'auto',
+        opacity: 0.5,
+        zIndex: 1,
+        transform: isLeft ? 'none' : 'scaleX(-1)',
+      }}
+    >
+      {/* vertical stem */}
+      <path d="M 60,580 C 58,480 62,380 60,280 C 58,180 62,100 60,20"
+        stroke="#C9A84C" strokeWidth="1.2" fill="none" />
+
+      {/* large flower top */}
+      {[0,60,120,180,240,300].map((deg, i) => {
+        const rad = (deg * Math.PI) / 180;
+        return (
+          <ellipse key={i} cx={60 + Math.cos(rad) * 16} cy={36 + Math.sin(rad) * 16}
+            rx="7" ry="11" transform={`rotate(${deg}, ${60 + Math.cos(rad) * 16}, ${36 + Math.sin(rad) * 16})`}
+            fill="rgba(201,168,76,0.15)" stroke="#C9A84C" strokeWidth="0.8" />
+        );
+      })}
+      <circle cx="60" cy="36" r="7" fill="rgba(201,168,76,0.4)" stroke="#C9A84C" strokeWidth="0.9" />
+      <circle cx="60" cy="36" r="3.5" fill="#C9A84C" />
+
+      {/* mid flowers */}
+      {[180, 320, 440].map((y, i) => (
+        <g key={i}>
+          {[0,72,144,216,288].map((deg, j) => {
+            const rad = (deg * Math.PI) / 180;
+            return (
+              <ellipse key={j} cx={60 + Math.cos(rad) * 11} cy={y + Math.sin(rad) * 11}
+                rx="5" ry="8" transform={`rotate(${deg}, ${60 + Math.cos(rad) * 11}, ${y + Math.sin(rad) * 11})`}
+                fill="rgba(201,168,76,0.12)" stroke="#C9A84C" strokeWidth="0.7" />
+            );
+          })}
+          <circle cx="60" cy={y} r="5" fill="rgba(201,168,76,0.35)" stroke="#C9A84C" strokeWidth="0.7" />
+        </g>
+      ))}
+
+      {/* leaves */}
+      {[120, 240, 370, 500].map((y, i) => (
+        <path key={i}
+          d={i % 2 === 0
+            ? `M60,${y} C40,${y - 16} 22,${y - 6} 28,${y + 8}`
+            : `M60,${y} C80,${y - 16} 98,${y - 6} 92,${y + 8}`}
+          stroke="#C9A84C" strokeWidth="0.9" fill="rgba(201,168,76,0.1)" />
+      ))}
+
+      {/* bottom ornament */}
+      <circle cx="60" cy="570" r="8" fill="rgba(201,168,76,0.2)" stroke="#C9A84C" strokeWidth="0.9" />
+      <line x1="60" y1="562" x2="60" y2="555" stroke="#C9A84C" strokeWidth="0.9" />
+      <line x1="52" y1="570" x2="68" y2="570" stroke="#C9A84C" strokeWidth="0.9" />
+    </svg>
+  );
+}
+
 function StatCounter({ target, label, suffix = '', duration = 1800 }: { target: number; label: string; suffix?: string; duration?: number }) {
   const { count, ref } = useCountUp(target, duration);
   return (
@@ -338,6 +502,11 @@ export default function HeroSection() {
           borderRadius: '50%',
         }}
       />
+
+      {/* Art Nouveau: arch + side panels */}
+      <MuchaArch />
+      <MuchaSidePanel side="left" />
+      <MuchaSidePanel side="right" />
 
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
