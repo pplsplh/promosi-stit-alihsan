@@ -2,15 +2,15 @@ import { BookOpen, GraduationCap, ArrowRight, CheckCircle } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const PARTICLES = [
-  { id: 0, x: 3,  y: 10, size: 2,   dur: 11, delay: 0   },
-  { id: 1, x: 96, y: 25, size: 1.5, dur: 9,  delay: 2.3 },
-  { id: 2, x: 48, y: 3,  size: 2.5, dur: 8,  delay: 1.1 },
-  { id: 3, x: 20, y: 55, size: 1,   dur: 13, delay: 3   },
-  { id: 4, x: 82, y: 70, size: 2,   dur: 10, delay: 0.6 },
-  { id: 5, x: 65, y: 88, size: 1.5, dur: 12, delay: 1.8 },
-  { id: 6, x: 35, y: 80, size: 2,   dur: 7,  delay: 4.2 },
-  { id: 7, x: 90, y: 50, size: 2.5, dur: 9,  delay: 0.4 },
-  { id: 8, x: 15, y: 35, size: 1.5, dur: 11, delay: 2.7 },
+  { id: 0, x: 3,  y: 10, size: 6,  dur: 11, delay: 0   },
+  { id: 1, x: 96, y: 25, size: 5,  dur: 9,  delay: 2.3 },
+  { id: 2, x: 48, y: 3,  size: 7,  dur: 8,  delay: 1.1 },
+  { id: 3, x: 20, y: 55, size: 4,  dur: 13, delay: 3   },
+  { id: 4, x: 82, y: 70, size: 6,  dur: 10, delay: 0.6 },
+  { id: 5, x: 65, y: 88, size: 5,  dur: 12, delay: 1.8 },
+  { id: 6, x: 35, y: 80, size: 6,  dur: 7,  delay: 4.2 },
+  { id: 7, x: 90, y: 50, size: 7,  dur: 9,  delay: 0.4 },
+  { id: 8, x: 15, y: 35, size: 4,  dur: 11, delay: 2.7 },
 ];
 
 const programs = [
@@ -51,13 +51,9 @@ export default function ProgramsSection() {
   return (
     <section
       id="program-studi"
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-14 md:py-32 overflow-hidden"
       style={{ background: '#0b2f1f' }}
     >
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,80,0.2), transparent)' }}
-      />
 
       {/* Floating particles */}
       {PARTICLES.map((p) => (
@@ -69,7 +65,7 @@ export default function ProgramsSection() {
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
-            background: 'rgba(212,175,80,0.45)',
+            background: 'rgba(212,175,80,0.75)', zIndex: 0,
             animation: `${p.id % 2 === 0 ? 'floatParticle' : 'floatParticle2'} ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
           }}
         />
@@ -110,7 +106,7 @@ export default function ProgramsSection() {
               Program Studi
             </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+          <h2 className="text-[1.85rem] md:text-5xl font-extrabold text-white mb-4 leading-tight">
             Pilihan Program Studi
             <br />
             <span style={{ color: '#d4af50' }}>Unggulan</span>
@@ -134,7 +130,7 @@ export default function ProgramsSection() {
               }}
             >
               {/* Image side */}
-              <div className={`relative ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
+              <div className={`relative p-4 md:p-0 ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
                 <div className="relative rounded-xl overflow-hidden">
                   <img
                     src={prog.image}

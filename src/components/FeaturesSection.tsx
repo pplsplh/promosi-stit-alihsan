@@ -12,19 +12,41 @@ const features = [
 
 const ANIM = ['animate-on-scroll-left', 'animate-on-scroll', 'animate-on-scroll-right'];
 
+const PARTICLES = [
+  { id: 0, x: 7,  y: 12, size: 6,  dur: 10, delay: 0   },
+  { id: 1, x: 93, y: 28, size: 5,  dur: 8,  delay: 2.1 },
+  { id: 2, x: 45, y: 5,  size: 7,  dur: 12, delay: 0.9 },
+  { id: 3, x: 22, y: 60, size: 4,  dur: 9,  delay: 3.3 },
+  { id: 4, x: 80, y: 72, size: 6,  dur: 11, delay: 0.5 },
+  { id: 5, x: 60, y: 90, size: 5,  dur: 7,  delay: 2.7 },
+  { id: 6, x: 15, y: 85, size: 4,  dur: 13, delay: 1.5 },
+  { id: 7, x: 87, y: 50, size: 6,  dur: 9,  delay: 4   },
+];
+
 export default function FeaturesSection() {
   const ref = useScrollAnimation();
 
   return (
     <section
       id="keunggulan"
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-14 md:py-32 overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #0b2a1a 0%, #0b2f1f 50%, #0b2a1a 100%)' }}
     >
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,80,0.2), transparent)' }}
-      />
+
+      {PARTICLES.map((p) => (
+        <div
+          key={p.id}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            background: 'rgba(212,175,80,0.75)', zIndex: 0,
+            animation: `${p.id % 2 === 0 ? 'floatParticle' : 'floatParticle2'} ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
+          }}
+        />
+      ))}
 
       {/* Background glow */}
       <div
@@ -51,10 +73,9 @@ export default function FeaturesSection() {
               Keunggulan
             </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+          <h2 className="text-[1.85rem] md:text-5xl font-extrabold text-white mb-4 leading-tight">
             Mengapa Memilih
-            <br />
-            <span style={{ color: '#C9A84C' }}>STIT Al-Ihsan?</span>
+            <span className="block mt-3" style={{ color: '#C9A84C' }}>STIT Al-Ihsan?</span>
           </h2>
           <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
             Komitmen kami terhadap kualitas pendidikan Islam terwujud dalam setiap aspek

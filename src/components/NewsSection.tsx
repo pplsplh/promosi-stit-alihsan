@@ -2,14 +2,14 @@ import { Calendar, ArrowRight } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const PARTICLES = [
-  { id: 0, x: 10, y: 12, size: 2,   dur: 9,  delay: 0.4 },
-  { id: 1, x: 90, y: 30, size: 1.5, dur: 11, delay: 1.9 },
-  { id: 2, x: 45, y: 5,  size: 3,   dur: 8,  delay: 0.8 },
-  { id: 3, x: 70, y: 65, size: 1.5, dur: 13, delay: 3.2 },
-  { id: 4, x: 22, y: 80, size: 2,   dur: 10, delay: 0   },
-  { id: 5, x: 85, y: 88, size: 1,   dur: 7,  delay: 2.6 },
-  { id: 6, x: 55, y: 92, size: 2,   dur: 12, delay: 1.4 },
-  { id: 7, x: 33, y: 48, size: 1.5, dur: 9,  delay: 4.1 },
+  { id: 0, x: 10, y: 12, size: 6,  dur: 9,  delay: 0.4 },
+  { id: 1, x: 90, y: 30, size: 5,  dur: 11, delay: 1.9 },
+  { id: 2, x: 45, y: 5,  size: 8,  dur: 8,  delay: 0.8 },
+  { id: 3, x: 70, y: 65, size: 5,  dur: 13, delay: 3.2 },
+  { id: 4, x: 22, y: 80, size: 6,  dur: 10, delay: 0   },
+  { id: 5, x: 85, y: 88, size: 4,  dur: 7,  delay: 2.6 },
+  { id: 6, x: 55, y: 92, size: 6,  dur: 12, delay: 1.4 },
+  { id: 7, x: 33, y: 48, size: 5,  dur: 9,  delay: 4.1 },
 ];
 
 const news = [
@@ -29,7 +29,7 @@ const news = [
   },
   {
     category: 'Kegiatan',
-    title: 'Nakamakrab: Semarak Malam Keakraban Mahasiswa',
+    title: 'NAKAMAKRAB: Semarak Malam Keakraban Mahasiswa',
     excerpt: '"Wherever you go, STIT Al-Ihsan still your home!", yang mengindikasikan bahwa ini adalah acara internal kampus untuk mempererat tali persaudaraan, team building, atau penyambutan mahasiswa baru/reuni alumni.',
     date: '17-18 Januari 2026',
     image: '/image/kegiatan-nakamakrab.jpg',
@@ -50,13 +50,9 @@ export default function NewsSection() {
   return (
     <section
       id="berita"
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-14 md:py-32 overflow-hidden"
       style={{ background: '#0b2f1f' }}
     >
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,80,0.2), transparent)' }}
-      />
 
       {/* Floating particles */}
       {PARTICLES.map((p) => (
@@ -68,7 +64,7 @@ export default function NewsSection() {
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
-            background: 'rgba(212,175,80,0.45)',
+            background: 'rgba(212,175,80,0.75)', zIndex: 0,
             animation: `${p.id % 2 === 0 ? 'floatParticle' : 'floatParticle2'} ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
           }}
         />
@@ -86,7 +82,7 @@ export default function NewsSection() {
                 Berita & Kegiatan
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+            <h2 className="text-[1.85rem] md:text-5xl font-extrabold text-white leading-tight">
               Informasi
               <br />
               <span style={{ color: '#C9A84C' }}>Terbaru</span>
@@ -103,7 +99,7 @@ export default function NewsSection() {
         </div>
 
         {/* News cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {news.map((item, i) => (
             <a
               key={i}

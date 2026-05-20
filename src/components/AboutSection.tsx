@@ -2,16 +2,16 @@ import { BookOpen, Users, Award, Target } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const PARTICLES = [
-  { id: 0, x: 5,  y: 15, size: 2.5, dur: 9,  delay: 0   },
-  { id: 1, x: 88, y: 22, size: 1.5, dur: 11, delay: 1.2 },
-  { id: 2, x: 42, y: 8,  size: 3,   dur: 8,  delay: 2.5 },
-  { id: 3, x: 73, y: 60, size: 2,   dur: 13, delay: 0.7 },
-  { id: 4, x: 18, y: 75, size: 1.5, dur: 10, delay: 3.1 },
-  { id: 5, x: 95, y: 85, size: 2,   dur: 7,  delay: 1.8 },
-  { id: 6, x: 60, y: 90, size: 2.5, dur: 12, delay: 0.3 },
-  { id: 7, x: 30, y: 50, size: 1,   dur: 9,  delay: 4   },
-  { id: 8, x: 80, y: 40, size: 2,   dur: 11, delay: 2   },
-  { id: 9, x: 50, y: 30, size: 1.5, dur: 8,  delay: 1.5 },
+  { id: 0, x: 5,  y: 15, size: 7,  dur: 9,  delay: 0   },
+  { id: 1, x: 88, y: 22, size: 5,  dur: 11, delay: 1.2 },
+  { id: 2, x: 42, y: 8,  size: 8,  dur: 8,  delay: 2.5 },
+  { id: 3, x: 73, y: 60, size: 5,  dur: 13, delay: 0.7 },
+  { id: 4, x: 18, y: 75, size: 4,  dur: 10, delay: 3.1 },
+  { id: 5, x: 95, y: 85, size: 6,  dur: 7,  delay: 1.8 },
+  { id: 6, x: 60, y: 90, size: 7,  dur: 12, delay: 0.3 },
+  { id: 7, x: 30, y: 50, size: 4,  dur: 9,  delay: 4   },
+  { id: 8, x: 80, y: 40, size: 5,  dur: 11, delay: 2   },
+  { id: 9, x: 50, y: 30, size: 4,  dur: 8,  delay: 1.5 },
 ];
 
 const values = [
@@ -27,7 +27,7 @@ export default function AboutSection() {
   return (
     <section
       id="profil"
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-14 md:py-32 overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #0b2a1a 0%, #0f3a23 50%, #0b2a1a 100%)' }}
     >
       {/* Subtle pattern */}
@@ -48,7 +48,7 @@ export default function AboutSection() {
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
-            background: 'rgba(212,175,80,0.5)',
+            background: 'rgba(212,175,80,0.75)', zIndex: 0,
             animation: `${p.id % 2 === 0 ? 'floatParticle' : 'floatParticle2'} ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
           }}
         />
@@ -78,10 +78,9 @@ export default function AboutSection() {
               Tentang Kami
             </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+          <h2 className="text-[1.85rem] md:text-5xl font-extrabold text-white mb-4 leading-tight">
             Membangun Peradaban Melalui
-            <br />
-            <span style={{ color: '#d4af50' }}>Pendidikan Berkualitas</span>
+            <span className="block mt-3" style={{ color: '#d4af50' }}>Pendidikan Berkualitas</span>
           </h2>
           <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
             STIT Al-Ihsan Baleendah hadir sebagai lembaga pendidikan tinggi Islam yang berkomitmen

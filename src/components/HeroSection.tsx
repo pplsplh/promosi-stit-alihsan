@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { GraduationCap, BookOpen, Star, ChevronDown, Menu, X } from 'lucide-react';
+import { WA_URL, CTA_PRIMARY_LABEL, CTA_NAV_LABEL } from '../config';
+import { useCountUp } from '../hooks/useCountUp';
+import { animate, stagger, splitText } from 'animejs';
 
 const PARTICLES = Array.from({ length: 24 }, (_, i) => ({
   id: i,
@@ -70,12 +73,67 @@ function Arabesque({ size, color = 'currentColor' }: { size: number; color?: str
   );
 }
 
+function StatCounter({ target, label, suffix = '', duration = 1800 }: { target: number; label: string; suffix?: string; duration?: number }) {
+  const { count, ref } = useCountUp(target, duration);
+  return (
+    <div ref={ref} className="text-center">
+      <div className="text-xl md:text-2xl font-bold" style={{ color: '#C9A84C' }}>
+        {count}{suffix}
+      </div>
+      <div className="text-xs md:text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>{label}</div>
+    </div>
+  );
+}
+
+function StatText({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="text-center">
+      <div className="text-xl md:text-2xl font-bold" style={{ color: '#C9A84C' }}>{value}</div>
+      <div className="text-xs md:text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>{label}</div>
+    </div>
+  );
+}
+
+const NAV_ITEMS = [
+  { label: 'Beranda',       href: '#',              id: ''              },
+  { label: 'Profil',        href: '#profil',        id: 'profil'        },
+  { label: 'Program Studi', href: '#program-studi', id: 'program-studi' },
+  { label: 'Berita',        href: '#berita',        id: 'berita'        },
+  { label: 'Kontak',        href: '#footer',        id: 'footer'        },
+];
+
 export default function HeroSection() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animFrameRef = useRef<number>(0);
   const timeRef = useRef(0);
+  const isVisibleRef = useRef(true);
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  useEffect(() => {
+    // split "Sekolah Tinggi Ilmu" per karakter
+    const { chars } = splitText('.hero-line1', { chars: true });
+
+    animate(chars, {
+      y: [
+        { to: '-2rem', ease: 'outExpo', duration: 500 },
+        { to: 0, ease: 'outBounce', duration: 700, delay: 80 },
+      ],
+      opacity: [0, 1],
+      delay: stagger(45, { start: 200 }),
+    });
+
+    // "Tarbiyah Al-Ihsan" fade in setelah semua karakter selesai
+    animate('.hero-line2', {
+      opacity: [0, 1],
+      y: [20, 0],
+      delay: chars.length * 45 + 600,
+      duration: 900,
+      ease: 'outExpo',
+    });
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -84,10 +142,56 @@ export default function HeroSection() {
   }, []);
 
   useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    // Section biasa: aktif saat pusatnya menyilang garis tengah viewport
+    ['profil', 'program-studi', 'berita'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    // Footer: aktif begitu 15% dari footer terlihat (footer pendek, tidak akan menyilang garis tengah)
+    const footerEl = document.getElementById('footer');
+    if (footerEl) {
+      const footerObs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection('footer'); },
+        { threshold: 0.15 }
+      );
+      footerObs.observe(footerEl);
+      observers.push(footerObs);
+    }
+
+    // Hero: reset ke Beranda saat hero masih dominan
+    const heroObs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setActiveSection(''); },
+      { rootMargin: '0px 0px -80% 0px', threshold: 0 }
+    );
+    const heroEl = document.querySelector('.hero-line1');
+    if (heroEl) heroObs.observe(heroEl as Element);
+
+    return () => {
+      observers.forEach((obs) => obs.disconnect());
+      heroObs.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    // Level 3: skip canvas sepenuhnya di mobile
+    if (isMobile) return;
+
+    const NODE_COUNT = 30;
+    const LINK_DIST  = 140;
 
     const resize = () => {
       canvas.width = canvas.offsetWidth;
@@ -97,7 +201,7 @@ export default function HeroSection() {
     resize();
     window.addEventListener('resize', resize);
 
-    const nodes: { x: number; y: number; vx: number; vy: number }[] = Array.from({ length: 30 }, () => ({
+    const nodes: { x: number; y: number; vx: number; vy: number }[] = Array.from({ length: NODE_COUNT }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * 0.4,
@@ -105,6 +209,12 @@ export default function HeroSection() {
     }));
 
     const draw = () => {
+      // Level 2: stop render kalau canvas tidak terlihat
+      if (!isVisibleRef.current) {
+        animFrameRef.current = requestAnimationFrame(draw);
+        return;
+      }
+
       if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       timeRef.current += 0.008;
@@ -121,8 +231,8 @@ export default function HeroSection() {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 140) {
-            const alpha = (1 - dist / 140) * 0.18;
+          if (dist < LINK_DIST) {
+            const alpha = (1 - dist / LINK_DIST) * 0.18;
             ctx.strokeStyle = `rgba(212, 175, 80, ${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.beginPath();
@@ -142,11 +252,19 @@ export default function HeroSection() {
       animFrameRef.current = requestAnimationFrame(draw);
     };
 
+    // Level 2: Intersection Observer — pause saat hero tidak di viewport
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
     draw();
 
     return () => {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animFrameRef.current);
+      observer.disconnect();
     };
   }, []);
 
@@ -199,11 +317,13 @@ export default function HeroSection() {
         />
       ))}
 
-       <canvas
-         ref={canvasRef}
-         className="absolute inset-0 w-full h-full pointer-events-none"
-         style={{ opacity: 0.6 }}
-       />
+       {!isMobile && (
+         <canvas
+           ref={canvasRef}
+           className="absolute inset-0 w-full h-full pointer-events-none"
+           style={{ opacity: 0.6 }}
+         />
+       )}
 
       {/* Radial glow center */}
       <div
@@ -244,23 +364,34 @@ export default function HeroSection() {
           </div>
 
           <div className="hidden md:flex items-center gap-8">
-            {['Beranda', 'Profil', 'Program Studi', 'Berita', 'Kontak'].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="text-sm font-medium transition-colors duration-200"
-                style={{ color: 'rgba(255,255,255,0.75)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.75)')}
-              >
-                {item}
-              </a>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-sm font-medium transition-colors duration-200 relative"
+                  style={{ color: isActive ? '#C9A84C' : 'rgba(255,255,255,0.75)' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = isActive ? '#C9A84C' : 'rgba(255,255,255,0.75)')}
+                >
+                  {item.label}
+                  {isActive && (
+                    <span
+                      className="absolute -bottom-1 left-0 right-0 h-px rounded-full"
+                      style={{ background: '#C9A84C' }}
+                    />
+                  )}
+                </a>
+              );
+            })}
           </div>
 
           <div className="hidden md:block">
             <a
-              href="#"
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-5 py-2.5 text-sm font-semibold rounded-full transition-all duration-300"
               style={{
                 background: 'linear-gradient(135deg, #C9A84C, #8B6914)',
@@ -276,7 +407,7 @@ export default function HeroSection() {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              Daftar Sekarang
+              {CTA_NAV_LABEL}
             </a>
           </div>
 
@@ -287,17 +418,25 @@ export default function HeroSection() {
 
         {menuOpen && (
           <div className="md:hidden px-6 pb-4 flex flex-col gap-4" style={{ background: 'rgba(11,42,26,0.97)' }}>
-            {['Beranda', 'Profil', 'Program Studi', 'Berita', 'Kontak'].map((item) => (
-              <a key={item} href="#" className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.8)' }}>
-                {item}
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="text-sm font-medium"
+                style={{ color: activeSection === item.id ? '#C9A84C' : 'rgba(255,255,255,0.8)' }}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
               </a>
             ))}
             <a
-              href="#"
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-5 py-2.5 text-sm font-semibold rounded-full text-center"
               style={{ background: 'linear-gradient(135deg, #C9A84C, #8B6914)', color: '#071a0d' }}
             >
-              Daftar Sekarang
+              {CTA_NAV_LABEL}
             </a>
           </div>
         )}
@@ -320,21 +459,20 @@ export default function HeroSection() {
         </div>
 
         <h1
-          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight"
-          style={{
-            color: '#ffffff',
-            animation: 'fadeInUp 0.9s ease 0.2s both',
-            textShadow: '0 2px 40px rgba(212,175,80,0.15)',
-          }}
+          className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight"
+          style={{ textShadow: '0 2px 40px rgba(212,175,80,0.15)' }}
         >
-          Sekolah Tinggi Ilmu
+          <span className="hero-line1 text-white">Sekolah Tinggi Ilmu</span>
           <br />
           <span
+            className="hero-line2 mt-3 inline-block"
             style={{
+              opacity: 0,
               background: 'linear-gradient(135deg, #C9A84C, #f5d78e, #C9A84C)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
+              paddingBottom: '0.15em',
             }}
           >
             Tarbiyah Al-Ihsan
@@ -357,27 +495,18 @@ export default function HeroSection() {
           <div className="w-16 h-px" style={{ background: 'linear-gradient(to left, transparent, #C9A84C)' }} />
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10 mb-10" style={{ animation: 'fadeInUp 0.9s ease 0.55s both' }}>
-          {[
-            { value: '2017', label: 'Tahun Berdiri' },
-            { value: '2', label: 'Program Studi' },
-            { value: '1000+', label: 'Alumni' },
-            { value: 'Terakreditasi', label: 'BAN-PT' },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-xl md:text-2xl font-bold" style={{ color: '#C9A84C' }}>
-                {stat.value}
-              </div>
-              <div className="text-xs md:text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                {stat.label}
-              </div>
-            </div>
-          ))}
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-5 md:gap-10 mb-10 w-full max-w-sm sm:max-w-none" style={{ animation: 'fadeInUp 0.9s ease 0.55s both' }}>
+          <StatCounter target={2017} label="Tahun Berdiri" />
+          <StatCounter target={2} label="Program Studi" duration={800} />
+          <StatCounter target={1000} label="Alumni" suffix="+" />
+          <StatText value="Terakreditasi" label="BAN-PT" />
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 mb-16" style={{ animation: 'fadeInUp 0.9s ease 0.65s both' }}>
           <a
-            href="#"
+            href={WA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm transition-all duration-300"
             style={{
               background: 'linear-gradient(135deg, #C9A84C, #8B6914)',
@@ -394,10 +523,10 @@ export default function HeroSection() {
             }}
           >
             <GraduationCap size={16} />
-            Daftar Mahasiswa Baru
+            {CTA_PRIMARY_LABEL}
           </a>
           <a
-            href="#"
+            href="#program-studi"
             className="flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm transition-all duration-300"
             style={{ background: 'transparent', color: '#ffffff', border: '1.5px solid rgba(212,175,80,0.5)' }}
             onMouseEnter={(e) => {

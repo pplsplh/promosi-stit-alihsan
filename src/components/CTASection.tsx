@@ -1,5 +1,6 @@
 import { GraduationCap, Phone } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { WA_URL, CTA_PRIMARY_LABEL, PMB_MODE } from '../config';
 
 const PARTICLES = [
   { id: 0, x: 5,  y: 20, size: 2.5, dur: 10, delay: 0   },
@@ -18,13 +19,9 @@ export default function CTASection() {
 
   return (
     <section
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-14 md:py-32 overflow-hidden"
       style={{ background: '#0d3520' }}
     >
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,80,0.2), transparent)' }}
-      />
 
       {/* Floating particles */}
       {PARTICLES.map((p) => (
@@ -36,7 +33,7 @@ export default function CTASection() {
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
-            background: 'rgba(212,175,80,0.5)',
+            background: 'rgba(212,175,80,0.75)', zIndex: 0,
             animation: `${p.id % 2 === 0 ? 'floatParticle' : 'floatParticle2'} ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
           }}
         />
@@ -69,7 +66,7 @@ export default function CTASection() {
             <GraduationCap size={28} color="#0a1628" />
           </div>
 
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+          <h2 className="text-[1.85rem] md:text-5xl font-extrabold text-white mb-4 leading-tight">
             Siap Memulai Perjalanan
             <br />
             <span style={{ color: '#C9A84C' }}>Akademik Anda?</span>
@@ -82,7 +79,9 @@ export default function CTASection() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
             <a
-              href="#"
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-300"
               style={{
                 background: 'linear-gradient(135deg, #C9A84C, #8B6914)',
@@ -99,10 +98,12 @@ export default function CTASection() {
               }}
             >
               <GraduationCap size={16} />
-              Daftar Mahasiswa Baru
+              {CTA_PRIMARY_LABEL}
             </a>
             <a
-              href="#"
+              href="https://wa.me/6282135402248?text=Halo%2C%20saya%20ingin%20bertanya%20seputar%20PMB%20STIT%20Al-Ihsan%20TA%202026%2F2027"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-300"
               style={{ background: 'transparent', color: '#ffffff', border: '1.5px solid rgba(212,175,80,0.5)' }}
               onMouseEnter={(e) => {
@@ -121,19 +122,21 @@ export default function CTASection() {
             </a>
           </div>
 
-          {/* Gelombang info */}
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-            {[
-              { label: 'Gelombang 1', value: 'Jan - Mar 2025' },
-              { label: 'Gelombang 2', value: 'Apr - Jun 2025' },
-              { label: 'Gelombang 3', value: 'Jul - Agu 2025' },
-            ].map((g) => (
-              <div key={g.label} className="text-center">
-                <div className="text-sm font-bold" style={{ color: '#C9A84C' }}>{g.label}</div>
-                <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{g.value}</div>
-              </div>
-            ))}
-          </div>
+          {/* Gelombang info — hanya tampil saat PMB aktif */}
+          {PMB_MODE && (
+            <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+              {[
+                { label: 'Gelombang 1', value: 'Jan - Mar 2026' },
+                { label: 'Gelombang 2', value: 'Apr - Jun 2026' },
+                { label: 'Gelombang 3', value: 'Jul - Agu 2026' },
+              ].map((g) => (
+                <div key={g.label} className="text-center">
+                  <div className="text-sm font-bold" style={{ color: '#C9A84C' }}>{g.label}</div>
+                  <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{g.value}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

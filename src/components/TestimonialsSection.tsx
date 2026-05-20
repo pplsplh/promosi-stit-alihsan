@@ -2,14 +2,14 @@ import { Star, Quote } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const PARTICLES = [
-  { id: 0, x: 6,  y: 18, size: 2,   dur: 10, delay: 0.2 },
-  { id: 1, x: 94, y: 40, size: 1.5, dur: 8,  delay: 2.5 },
-  { id: 2, x: 50, y: 6,  size: 2.5, dur: 12, delay: 1.3 },
-  { id: 3, x: 28, y: 72, size: 1,   dur: 9,  delay: 3.8 },
-  { id: 4, x: 76, y: 85, size: 2,   dur: 11, delay: 0.8 },
-  { id: 5, x: 88, y: 60, size: 1.5, dur: 7,  delay: 2   },
-  { id: 6, x: 15, y: 92, size: 2,   dur: 13, delay: 1   },
-  { id: 7, x: 62, y: 78, size: 1,   dur: 9,  delay: 4.5 },
+  { id: 0, x: 6,  y: 18, size: 6,  dur: 10, delay: 0.2 },
+  { id: 1, x: 94, y: 40, size: 5,  dur: 8,  delay: 2.5 },
+  { id: 2, x: 50, y: 6,  size: 7,  dur: 12, delay: 1.3 },
+  { id: 3, x: 28, y: 72, size: 4,  dur: 9,  delay: 3.8 },
+  { id: 4, x: 76, y: 85, size: 6,  dur: 11, delay: 0.8 },
+  { id: 5, x: 88, y: 60, size: 5,  dur: 7,  delay: 2   },
+  { id: 6, x: 15, y: 92, size: 6,  dur: 13, delay: 1   },
+  { id: 7, x: 62, y: 78, size: 4,  dur: 9,  delay: 4.5 },
 ];
 
 const testimonials = [
@@ -38,13 +38,9 @@ export default function TestimonialsSection() {
 
   return (
     <section
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-14 md:py-32 overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #0b2a1a 0%, #0b2f1f 50%, #0b2a1a 100%)' }}
     >
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,80,0.2), transparent)' }}
-      />
 
       {/* Floating particles */}
       {PARTICLES.map((p) => (
@@ -56,7 +52,7 @@ export default function TestimonialsSection() {
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
-            background: 'rgba(212,175,80,0.5)',
+            background: 'rgba(212,175,80,0.75)', zIndex: 0,
             animation: `${p.id % 2 === 0 ? 'floatParticle' : 'floatParticle2'} ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
           }}
         />
@@ -86,7 +82,7 @@ export default function TestimonialsSection() {
               Testimoni
             </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+          <h2 className="text-[1.85rem] md:text-5xl font-extrabold text-white mb-4 leading-tight">
             Kata Mereka Tentang
             <br />
             <span style={{ color: '#C9A84C' }}>STIT Al-Ihsan</span>
@@ -94,7 +90,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Testimonial cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <div
               key={i}
