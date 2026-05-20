@@ -1,20 +1,32 @@
 import { BookOpen, GraduationCap, ArrowRight, CheckCircle } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
+const PARTICLES = [
+  { id: 0, x: 3,  y: 10, size: 2,   dur: 11, delay: 0   },
+  { id: 1, x: 96, y: 25, size: 1.5, dur: 9,  delay: 2.3 },
+  { id: 2, x: 48, y: 3,  size: 2.5, dur: 8,  delay: 1.1 },
+  { id: 3, x: 20, y: 55, size: 1,   dur: 13, delay: 3   },
+  { id: 4, x: 82, y: 70, size: 2,   dur: 10, delay: 0.6 },
+  { id: 5, x: 65, y: 88, size: 1.5, dur: 12, delay: 1.8 },
+  { id: 6, x: 35, y: 80, size: 2,   dur: 7,  delay: 4.2 },
+  { id: 7, x: 90, y: 50, size: 2.5, dur: 9,  delay: 0.4 },
+  { id: 8, x: 15, y: 35, size: 1.5, dur: 11, delay: 2.7 },
+];
+
 const programs = [
   {
-    name: 'Pendidikan Agama Islam',
-    shortName: 'PAI',
+    name: 'Pendidikan Guru Madrasah Ibtidaiyah',
+    shortName: 'PGMI',
     degree: 'S1',
     description:
-      'Program studi yang mempersiapkan tenaga pendidik agama Islam profesional dengan penguasaan ilmu keislaman, pedagogik, dan keterampilan mengajar yang mumpuni.',
+      'Program studi yang mempersiapkan tenaga pendidik kelas MI (Madrasah Ibtidaiyah) yang profesional dengan penguasaan ilmu keislaman, pedagogik, dan keterampilan mengajar yang mumpuni.',
     highlights: [
       'Kurikulum berbasis KKNI & SN-Dikti',
       'Praktik mengajar di madrasah & sekolah',
       'Mata kuliah tafsir, hadits, fiqih, & akhlak',
       'Sertifikasi kompetensi pendidik',
     ],
-    image: 'https://images.pexels.com/photos/8780770/pexels-photo-8780770.jpeg?auto=compress&cs=tinysrgb&w=600',
+    image: '/image/PGMI-1.jpg',
   },
   {
     name: 'Manajemen Pendidikan Islam',
@@ -28,9 +40,11 @@ const programs = [
       'Praktik manajemen di lembaga pendidikan',
       'Kerjasama dengan pondok pesantren',
     ],
-    image: 'https://images.pexels.com/photos/8566532/pexels-photo-8566532.jpeg?auto=compress&cs=tinysrgb&w=600',
+    image: '/image/program-mpi.jpg',
   },
 ];
+
+const CARD_ANIM = ['animate-on-scroll-left', 'animate-on-scroll-right'];
 
 export default function ProgramsSection() {
   const ref = useScrollAnimation();
@@ -39,12 +53,51 @@ export default function ProgramsSection() {
     <section
       id="program-studi"
       className="relative py-24 md:py-32 overflow-hidden"
-      style={{ background: '#0d1a30' }}
+      style={{ background: '#0b2f1f' }}
     >
-      {/* Top divider */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
         style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,80,0.2), transparent)' }}
+      />
+
+      {/* Floating particles */}
+      {PARTICLES.map((p) => (
+        <div
+          key={p.id}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            background: 'rgba(212,175,80,0.45)',
+            animation: `${p.id % 2 === 0 ? 'floatParticle' : 'floatParticle2'} ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
+          }}
+        />
+      ))}
+
+      {/* Side glows */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          left: '-80px',
+          top: '40%',
+          width: '320px',
+          height: '320px',
+          background: 'radial-gradient(circle, rgba(212,175,80,0.05) 0%, transparent 70%)',
+          borderRadius: '50%',
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          right: '-80px',
+          bottom: '20%',
+          width: '320px',
+          height: '320px',
+          background: 'radial-gradient(circle, rgba(212,175,80,0.05) 0%, transparent 70%)',
+          borderRadius: '50%',
+        }}
       />
 
       <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-6">
@@ -75,7 +128,7 @@ export default function ProgramsSection() {
           {programs.map((prog, idx) => (
             <div
               key={prog.shortName}
-              className="animate-on-scroll grid md:grid-cols-2 gap-6 md:gap-10 items-center rounded-2xl overflow-hidden"
+              className={`${CARD_ANIM[idx]} grid md:grid-cols-2 gap-6 md:gap-10 items-center rounded-2xl overflow-hidden`}
               style={{
                 background: 'rgba(212,175,80,0.03)',
                 border: '1px solid rgba(212,175,80,0.1)',
@@ -92,12 +145,11 @@ export default function ProgramsSection() {
                   />
                   <div
                     className="absolute inset-0"
-                    style={{ background: 'linear-gradient(135deg, rgba(10,22,40,0.6), rgba(212,175,80,0.1))' }}
+                    style={{ background: 'linear-gradient(135deg, rgba(11,42,26,0.6), rgba(212,175,80,0.1))' }}
                   />
-                  {/* Degree badge */}
                   <div
                     className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-bold"
-                    style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', color: '#0a1628' }}
+                    style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', color: '#071a0d' }}
                   >
                     {prog.degree}
                   </div>

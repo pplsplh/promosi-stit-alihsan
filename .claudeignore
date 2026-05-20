@@ -1,0 +1,52 @@
+# Dependencies (paling penting untuk di-ignore!)
+node_modules/
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# Cache
+.cache/
+.parcel-cache/
+.turbo/
+
+# Bolt-specific
+.bolt/
+
+# Lock files (besar & gak perlu dibaca)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment & secrets (jangan kasih akses ke API key!)
+.env
+.env.local
+.env.production
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Misc
+*.tsbuildinfo
+.eslintcache

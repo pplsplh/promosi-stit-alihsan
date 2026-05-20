@@ -29,6 +29,7 @@ function Star8({ size, color = 'currentColor' }: { size: number; color?: string 
     const inner = `${r + (r * 0.22) * Math.cos(innerAngle)},${r + (r * 0.22) * Math.sin(innerAngle)}`;
     return `${outer} ${inner}`;
   }).join(' ');
+
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
       <polygon points={points} fill={color} />
@@ -42,6 +43,7 @@ function Hexagon({ size, color = 'currentColor' }: { size: number; color?: strin
     const angle = (i * Math.PI) / 3 - Math.PI / 6;
     return `${r + r * 0.45 * Math.cos(angle)},${r + r * 0.45 * Math.sin(angle)}`;
   }).join(' ');
+
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
       <polygon points={points} fill="none" stroke={color} strokeWidth="2" />
@@ -51,6 +53,7 @@ function Hexagon({ size, color = 'currentColor' }: { size: number; color?: strin
 
 function Arabesque({ size, color = 'currentColor' }: { size: number; color?: string }) {
   const r = size / 2;
+
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
       {Array.from({ length: 12 }, (_, i) => {
@@ -90,6 +93,7 @@ export default function HeroSection() {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
     };
+
     resize();
     window.addEventListener('resize', resize);
 
@@ -127,6 +131,7 @@ export default function HeroSection() {
             ctx.stroke();
           }
         }
+
         const pulse = Math.sin(timeRef.current * 2 + i) * 0.5 + 0.5;
         ctx.beginPath();
         ctx.arc(nodes[i].x, nodes[i].y, 1.5 + pulse, 0, Math.PI * 2);
@@ -138,6 +143,7 @@ export default function HeroSection() {
     };
 
     draw();
+
     return () => {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animFrameRef.current);
@@ -145,7 +151,10 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden" style={{ background: 'linear-gradient(135deg, #0a1628 0%, #0d2040 40%, #0a1628 100%)' }}>
+    <div
+      className="relative min-h-screen overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #0b2a1a 0%, #0f3a23 40%, #0b2a1a 100%)' }}
+    >
       {/* Geometric background decorations */}
       {GEOMETRIC_SHAPES.map((s) => (
         <div
@@ -190,7 +199,6 @@ export default function HeroSection() {
         />
       ))}
 
-      {/* Canvas for network animation */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none"
@@ -211,11 +219,10 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Navbar */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          background: scrolled ? 'rgba(10,22,40,0.95)' : 'transparent',
+          background: scrolled ? 'rgba(11,42,26,0.95)' : 'transparent',
           backdropFilter: scrolled ? 'blur(12px)' : 'none',
           borderBottom: scrolled ? '1px solid rgba(212,175,80,0.15)' : 'none',
         }}
@@ -227,7 +234,7 @@ export default function HeroSection() {
                 className="w-10 h-10 flex items-center justify-center rounded-full"
                 style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', boxShadow: '0 0 20px rgba(212,175,80,0.3)' }}
               >
-                <GraduationCap size={20} color="#0a1628" strokeWidth={2.5} />
+                <GraduationCap size={20} color="#071a0d" strokeWidth={2.5} />
               </div>
             </div>
             <div>
@@ -257,7 +264,7 @@ export default function HeroSection() {
               className="px-5 py-2.5 text-sm font-semibold rounded-full transition-all duration-300"
               style={{
                 background: 'linear-gradient(135deg, #d4af50, #a07830)',
-                color: '#0a1628',
+                color: '#071a0d',
                 boxShadow: '0 0 20px rgba(212,175,80,0.25)',
               }}
               onMouseEnter={(e) => {
@@ -273,16 +280,13 @@ export default function HeroSection() {
             </a>
           </div>
 
-          <button
-            className="md:hidden text-white"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
+          <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {menuOpen && (
-          <div className="md:hidden px-6 pb-4 flex flex-col gap-4" style={{ background: 'rgba(10,22,40,0.97)' }}>
+          <div className="md:hidden px-6 pb-4 flex flex-col gap-4" style={{ background: 'rgba(11,42,26,0.97)' }}>
             {['Beranda', 'Profil', 'Program Studi', 'Berita', 'Kontak'].map((item) => (
               <a key={item} href="#" className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.8)' }}>
                 {item}
@@ -291,7 +295,7 @@ export default function HeroSection() {
             <a
               href="#"
               className="px-5 py-2.5 text-sm font-semibold rounded-full text-center"
-              style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', color: '#0a1628' }}
+              style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', color: '#071a0d' }}
             >
               Daftar Sekarang
             </a>
@@ -299,9 +303,7 @@ export default function HeroSection() {
         )}
       </nav>
 
-      {/* Hero content */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 text-center pt-20">
-        {/* Arabic text badge */}
         <div
           className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-8 animate-fadeInDown"
           style={{
@@ -317,7 +319,6 @@ export default function HeroSection() {
           <Star size={14} color="#d4af50" fill="#d4af50" />
         </div>
 
-        {/* Main heading */}
         <h1
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight"
           style={{
@@ -340,13 +341,9 @@ export default function HeroSection() {
           </span>
         </h1>
 
-        {/* Subheading */}
         <p
           className="text-base md:text-xl max-w-2xl mb-4 leading-relaxed"
-          style={{
-            color: 'rgba(255,255,255,0.65)',
-            animation: 'fadeInUp 0.9s ease 0.35s both',
-          }}
+          style={{ color: 'rgba(255,255,255,0.65)', animation: 'fadeInUp 0.9s ease 0.35s both' }}
         >
           Baleendah, Bandung — Membentuk Generasi Pendidik Muslim yang
           <span style={{ color: 'rgba(212,175,80,0.9)' }}> Berakhlak</span>,
@@ -354,23 +351,15 @@ export default function HeroSection() {
           <span style={{ color: 'rgba(212,175,80,0.9)' }}> Berdedikasi</span>
         </p>
 
-        {/* Divider ornament */}
-        <div
-          className="flex items-center gap-3 mb-8"
-          style={{ animation: 'fadeInUp 0.9s ease 0.45s both' }}
-        >
+        <div className="flex items-center gap-3 mb-8" style={{ animation: 'fadeInUp 0.9s ease 0.45s both' }}>
           <div className="w-16 h-px" style={{ background: 'linear-gradient(to right, transparent, #d4af50)' }} />
           <Star8 size={20} color="#d4af50" />
           <div className="w-16 h-px" style={{ background: 'linear-gradient(to left, transparent, #d4af50)' }} />
         </div>
 
-        {/* Stats row */}
-        <div
-          className="flex flex-wrap justify-center gap-6 md:gap-10 mb-10"
-          style={{ animation: 'fadeInUp 0.9s ease 0.55s both' }}
-        >
+        <div className="flex flex-wrap justify-center gap-6 md:gap-10 mb-10" style={{ animation: 'fadeInUp 0.9s ease 0.55s both' }}>
           {[
-            { value: '20+', label: 'Tahun Berdiri' },
+            { value: '2017', label: 'Tahun Berdiri' },
             { value: '2', label: 'Program Studi' },
             { value: '1000+', label: 'Alumni' },
             { value: 'Terakreditasi', label: 'BAN-PT' },
@@ -386,17 +375,13 @@ export default function HeroSection() {
           ))}
         </div>
 
-        {/* CTA Buttons */}
-        <div
-          className="flex flex-col sm:flex-row gap-4 mb-16"
-          style={{ animation: 'fadeInUp 0.9s ease 0.65s both' }}
-        >
+        <div className="flex flex-col sm:flex-row gap-4 mb-16" style={{ animation: 'fadeInUp 0.9s ease 0.65s both' }}>
           <a
             href="#"
             className="flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm transition-all duration-300"
             style={{
               background: 'linear-gradient(135deg, #d4af50, #a07830)',
-              color: '#0a1628',
+              color: '#071a0d',
               boxShadow: '0 4px 30px rgba(212,175,80,0.35)',
             }}
             onMouseEnter={(e) => {
@@ -414,11 +399,7 @@ export default function HeroSection() {
           <a
             href="#"
             className="flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm transition-all duration-300"
-            style={{
-              background: 'transparent',
-              color: '#ffffff',
-              border: '1.5px solid rgba(212,175,80,0.5)',
-            }}
+            style={{ background: 'transparent', color: '#ffffff', border: '1.5px solid rgba(212,175,80,0.5)' }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(212,175,80,0.1)';
               e.currentTarget.style.borderColor = '#d4af50';
@@ -435,23 +416,18 @@ export default function HeroSection() {
           </a>
         </div>
 
-        {/* Scroll indicator */}
         <div
           className="flex flex-col items-center gap-2"
-          style={{
-            animation: 'fadeInUp 0.9s ease 0.75s both, bounceY 2s ease-in-out 2s infinite',
-            color: 'rgba(255,255,255,0.35)',
-          }}
+          style={{ animation: 'fadeInUp 0.9s ease 0.75s both, bounceY 2s ease-in-out 2s infinite', color: 'rgba(255,255,255,0.35)' }}
         >
           <span className="text-xs tracking-widest uppercase">Gulir ke Bawah</span>
           <ChevronDown size={18} />
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, rgba(10,22,40,0.6))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(11,42,26,0.6))' }}
       />
 
       <style>{`
@@ -475,3 +451,4 @@ export default function HeroSection() {
     </div>
   );
 }
+

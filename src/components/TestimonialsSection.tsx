@@ -1,11 +1,22 @@
 import { Star, Quote } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
+const PARTICLES = [
+  { id: 0, x: 6,  y: 18, size: 2,   dur: 10, delay: 0.2 },
+  { id: 1, x: 94, y: 40, size: 1.5, dur: 8,  delay: 2.5 },
+  { id: 2, x: 50, y: 6,  size: 2.5, dur: 12, delay: 1.3 },
+  { id: 3, x: 28, y: 72, size: 1,   dur: 9,  delay: 3.8 },
+  { id: 4, x: 76, y: 85, size: 2,   dur: 11, delay: 0.8 },
+  { id: 5, x: 88, y: 60, size: 1.5, dur: 7,  delay: 2   },
+  { id: 6, x: 15, y: 92, size: 2,   dur: 13, delay: 1   },
+  { id: 7, x: 62, y: 78, size: 1,   dur: 9,  delay: 4.5 },
+];
+
 const testimonials = [
   {
     name: 'Siti Nurhaliza, S.Pd.I',
-    role: 'Alumni PAI Angkatan 2020',
-    text: 'STIT Al-Ihsan memberikan fondasi keilmuan dan keimanan yang sangat kuat. Saya berhasil menjadi guru PAI unggulan di madrasah terbaik di Baleendah berkat bimbingan dosen yang luar biasa.',
+    role: 'Alumni PGMI Angkatan 2020',
+    text: 'STIT Al-Ihsan memberikan fondasi keilmuan dan keimanan yang sangat kuat. Saya berhasil menjadi guru unggulan di madrasah terbaik di Baleendah berkat bimbingan dosen yang luar biasa.',
     rating: 5,
   },
   {
@@ -16,7 +27,7 @@ const testimonials = [
   },
   {
     name: 'Dewi Rahmawati',
-    role: 'Mahasiswa PAI Semester 6',
+    role: 'Mahasiswa PGMI Semester 6',
     text: 'Suasana kampus yang Islami dan kekeluargaan membuat proses belajar sangat nyaman. Dosen-dosen sangat perhatian dan selalu mendorong kami untuk berprestasi.',
     rating: 5,
   },
@@ -28,12 +39,41 @@ export default function TestimonialsSection() {
   return (
     <section
       className="relative py-24 md:py-32 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0d1a30 50%, #0a1628 100%)' }}
+      style={{ background: 'linear-gradient(180deg, #0b2a1a 0%, #0b2f1f 50%, #0b2a1a 100%)' }}
     >
-      {/* Top divider */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
         style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,80,0.2), transparent)' }}
+      />
+
+      {/* Floating particles */}
+      {PARTICLES.map((p) => (
+        <div
+          key={p.id}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            background: 'rgba(212,175,80,0.5)',
+            animation: `${p.id % 2 === 0 ? 'floatParticle' : 'floatParticle2'} ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
+          }}
+        />
+      ))}
+
+      {/* Center glow */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '500px',
+          height: '500px',
+          background: 'radial-gradient(circle, rgba(212,175,80,0.05) 0%, transparent 70%)',
+          borderRadius: '50%',
+        }}
       />
 
       <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-6">
@@ -59,43 +99,36 @@ export default function TestimonialsSection() {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className="animate-on-scroll p-6 md:p-7 rounded-xl transition-all duration-300"
+              className="animate-on-scroll-scale p-6 md:p-7 rounded-xl transition-all duration-300"
               style={{
                 background: 'rgba(212,175,80,0.04)',
                 border: '1px solid rgba(212,175,80,0.1)',
-                transitionDelay: `${i * 0.1}s`,
+                transitionDelay: `${i * 0.15}s`,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = 'rgba(212,175,80,0.25)';
-                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.transform = 'translateY(-6px)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = 'rgba(212,175,80,0.1)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              {/* Quote icon */}
               <div className="mb-4">
                 <Quote size={28} color="#d4af50" style={{ opacity: 0.4 }} />
               </div>
-
-              {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: t.rating }, (_, j) => (
                   <Star key={j} size={14} color="#d4af50" fill="#d4af50" />
                 ))}
               </div>
-
-              {/* Text */}
               <p className="text-sm md:text-base leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.65)' }}>
                 &ldquo;{t.text}&rdquo;
               </p>
-
-              {/* Author */}
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold"
-                  style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', color: '#0a1628' }}
+                  style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', color: '#071a0d' }}
                 >
                   {t.name.charAt(0)}
                 </div>
