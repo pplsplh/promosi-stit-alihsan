@@ -1,18 +1,6 @@
 import { GraduationCap, BookOpen, Users, Globe, Library, HeartHandshake } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
-const PARTICLES = [
-  { id: 0, x: 8,  y: 20, size: 2,   dur: 10, delay: 0.5 },
-  { id: 1, x: 92, y: 35, size: 1.5, dur: 8,  delay: 2   },
-  { id: 2, x: 55, y: 5,  size: 3,   dur: 12, delay: 1   },
-  { id: 3, x: 25, y: 65, size: 1.5, dur: 9,  delay: 3.5 },
-  { id: 4, x: 78, y: 80, size: 2,   dur: 11, delay: 0   },
-  { id: 5, x: 40, y: 90, size: 2.5, dur: 7,  delay: 2.8 },
-  { id: 6, x: 67, y: 50, size: 1,   dur: 13, delay: 1.6 },
-  { id: 7, x: 12, y: 88, size: 2,   dur: 9,  delay: 4   },
-  { id: 8, x: 85, y: 12, size: 1.5, dur: 10, delay: 0.8 },
-];
-
 const features = [
   { icon: GraduationCap,  title: 'Dosen Berkualitas',  desc: 'Tenaga pengajar bergelar magister dan doktor dari universitas terkemuka dalam dan luar negeri.' },
   { icon: BookOpen,       title: 'Kurikulum Terkini',  desc: 'Kurikulum berbasis KKNI dan SN-Dikti yang mengintegrasikan keilmuan Islam dengan pendidikan modern.' },
@@ -38,22 +26,6 @@ export default function FeaturesSection() {
         style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,80,0.2), transparent)' }}
       />
 
-      {/* Floating particles */}
-      {PARTICLES.map((p) => (
-        <div
-          key={p.id}
-          className="absolute rounded-full pointer-events-none"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-            background: 'rgba(212,175,80,0.5)',
-            animation: `${p.id % 2 === 0 ? 'floatParticle' : 'floatParticle2'} ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
-          }}
-        />
-      ))}
-
       {/* Background glow */}
       <div
         className="absolute pointer-events-none"
@@ -75,14 +47,14 @@ export default function FeaturesSection() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
             style={{ background: 'rgba(212,175,80,0.1)', border: '1px solid rgba(212,175,80,0.25)' }}
           >
-            <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#d4af50' }}>
+            <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#C9A84C' }}>
               Keunggulan
             </span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Mengapa Memilih
             <br />
-            <span style={{ color: '#d4af50' }}>STIT Al-Ihsan?</span>
+            <span style={{ color: '#C9A84C' }}>STIT Al-Ihsan?</span>
           </h2>
           <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
             Komitmen kami terhadap kualitas pendidikan Islam terwujud dalam setiap aspek
@@ -116,10 +88,12 @@ export default function FeaturesSection() {
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"
                 style={{ background: 'rgba(212,175,80,0.12)' }}
               >
-                <f.icon size={22} color="#d4af50" />
+                <f.icon size={22} color="#C9A84C" />
               </div>
               <h3 className="text-white font-bold text-base md:text-lg mb-2">{f.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>{f.desc}</p>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                {f.desc}
+              </p>
             </div>
           ))}
         </div>

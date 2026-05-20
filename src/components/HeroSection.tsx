@@ -167,16 +167,16 @@ export default function HeroSection() {
             transform: `translate(-50%, -50%) rotate(${s.rotate}deg)`,
           }}
         >
-          {s.type === 'star8' && <Star8 size={s.size} color="#d4af50" />}
-          {s.type === 'hexagon' && <Hexagon size={s.size} color="#d4af50" />}
-          {s.type === 'arabesque' && <Arabesque size={s.size} color="#d4af50" />}
+          {s.type === 'star8' && <Star8 size={s.size} color="#C9A84C" />}
+          {s.type === 'hexagon' && <Hexagon size={s.size} color="#C9A84C" />}
+          {s.type === 'arabesque' && <Arabesque size={s.size} color="#C9A84C" />}
           {s.type === 'circle' && (
             <div
               style={{
                 width: s.size,
                 height: s.size,
                 borderRadius: '50%',
-                border: '1.5px solid #d4af50',
+                border: '1.5px solid #C9A84C',
               }}
             />
           )}
@@ -199,11 +199,11 @@ export default function HeroSection() {
         />
       ))}
 
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ opacity: 0.6 }}
-      />
+       <canvas
+         ref={canvasRef}
+         className="absolute inset-0 w-full h-full pointer-events-none"
+         style={{ opacity: 0.6 }}
+       />
 
       {/* Radial glow center */}
       <div
@@ -232,14 +232,14 @@ export default function HeroSection() {
             <div className="relative">
               <div
                 className="w-10 h-10 flex items-center justify-center rounded-full"
-                style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', boxShadow: '0 0 20px rgba(212,175,80,0.3)' }}
+                style={{ background: 'linear-gradient(135deg, #C9A84C, #8B6914)', boxShadow: '0 0 20px rgba(212,175,80,0.3)' }}
               >
                 <GraduationCap size={20} color="#071a0d" strokeWidth={2.5} />
               </div>
             </div>
             <div>
               <div className="text-white font-bold text-sm leading-tight tracking-wide">STIT Al-Ihsan</div>
-              <div className="text-xs leading-tight" style={{ color: '#d4af50' }}>Baleendah</div>
+              <div className="text-xs leading-tight" style={{ color: '#C9A84C' }}>Baleendah</div>
             </div>
           </div>
 
@@ -250,7 +250,7 @@ export default function HeroSection() {
                 href="#"
                 className="text-sm font-medium transition-colors duration-200"
                 style={{ color: 'rgba(255,255,255,0.75)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#d4af50')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.75)')}
               >
                 {item}
@@ -263,7 +263,7 @@ export default function HeroSection() {
               href="#"
               className="px-5 py-2.5 text-sm font-semibold rounded-full transition-all duration-300"
               style={{
-                background: 'linear-gradient(135deg, #d4af50, #a07830)',
+                background: 'linear-gradient(135deg, #C9A84C, #8B6914)',
                 color: '#071a0d',
                 boxShadow: '0 0 20px rgba(212,175,80,0.25)',
               }}
@@ -295,7 +295,7 @@ export default function HeroSection() {
             <a
               href="#"
               className="px-5 py-2.5 text-sm font-semibold rounded-full text-center"
-              style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', color: '#071a0d' }}
+              style={{ background: 'linear-gradient(135deg, #C9A84C, #8B6914)', color: '#071a0d' }}
             >
               Daftar Sekarang
             </a>
@@ -312,11 +312,11 @@ export default function HeroSection() {
             animation: 'fadeInDown 0.8s ease both',
           }}
         >
-          <Star size={14} color="#d4af50" fill="#d4af50" />
-          <span className="text-sm font-medium" style={{ color: '#d4af50' }}>
+          <Star size={14} color="#C9A84C" fill="#C9A84C" />
+          <span className="text-sm font-medium" style={{ color: '#C9A84C' }}>
             بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
           </span>
-          <Star size={14} color="#d4af50" fill="#d4af50" />
+          <Star size={14} color="#C9A84C" fill="#C9A84C" />
         </div>
 
         <h1
@@ -331,7 +331,7 @@ export default function HeroSection() {
           <br />
           <span
             style={{
-              background: 'linear-gradient(135deg, #d4af50, #f5d78e, #d4af50)',
+              background: 'linear-gradient(135deg, #C9A84C, #f5d78e, #C9A84C)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -352,9 +352,9 @@ export default function HeroSection() {
         </p>
 
         <div className="flex items-center gap-3 mb-8" style={{ animation: 'fadeInUp 0.9s ease 0.45s both' }}>
-          <div className="w-16 h-px" style={{ background: 'linear-gradient(to right, transparent, #d4af50)' }} />
-          <Star8 size={20} color="#d4af50" />
-          <div className="w-16 h-px" style={{ background: 'linear-gradient(to left, transparent, #d4af50)' }} />
+          <div className="w-16 h-px" style={{ background: 'linear-gradient(to right, transparent, #C9A84C)' }} />
+          <Star8 size={20} color="#C9A84C" />
+          <div className="w-16 h-px" style={{ background: 'linear-gradient(to left, transparent, #C9A84C)' }} />
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 md:gap-10 mb-10" style={{ animation: 'fadeInUp 0.9s ease 0.55s both' }}>
@@ -365,7 +365,7 @@ export default function HeroSection() {
             { value: 'Terakreditasi', label: 'BAN-PT' },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="text-xl md:text-2xl font-bold" style={{ color: '#d4af50' }}>
+              <div className="text-xl md:text-2xl font-bold" style={{ color: '#C9A84C' }}>
                 {stat.value}
               </div>
               <div className="text-xs md:text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
@@ -380,7 +380,7 @@ export default function HeroSection() {
             href="#"
             className="flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, #d4af50, #a07830)',
+              background: 'linear-gradient(135deg, #C9A84C, #8B6914)',
               color: '#071a0d',
               boxShadow: '0 4px 30px rgba(212,175,80,0.35)',
             }}
@@ -402,7 +402,7 @@ export default function HeroSection() {
             style={{ background: 'transparent', color: '#ffffff', border: '1.5px solid rgba(212,175,80,0.5)' }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(212,175,80,0.1)';
-              e.currentTarget.style.borderColor = '#d4af50';
+              e.currentTarget.style.borderColor = '#C9A84C';
               e.currentTarget.style.transform = 'translateY(-2px)';
             }}
             onMouseLeave={(e) => {
@@ -451,4 +451,3 @@ export default function HeroSection() {
     </div>
   );
 }
-

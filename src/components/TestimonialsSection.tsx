@@ -75,7 +75,6 @@ export default function TestimonialsSection() {
           borderRadius: '50%',
         }}
       />
-
       <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16 animate-on-scroll">
@@ -83,14 +82,14 @@ export default function TestimonialsSection() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
             style={{ background: 'rgba(212,175,80,0.1)', border: '1px solid rgba(212,175,80,0.25)' }}
           >
-            <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#d4af50' }}>
+            <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#C9A84C' }}>
               Testimoni
             </span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Kata Mereka Tentang
             <br />
-            <span style={{ color: '#d4af50' }}>STIT Al-Ihsan</span>
+            <span style={{ color: '#C9A84C' }}>STIT Al-Ihsan</span>
           </h2>
         </div>
 
@@ -115,11 +114,11 @@ export default function TestimonialsSection() {
               }}
             >
               <div className="mb-4">
-                <Quote size={28} color="#d4af50" style={{ opacity: 0.4 }} />
+                <Quote size={28} color="#C9A84C" style={{ opacity: 0.4 }} />
               </div>
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: t.rating }, (_, j) => (
-                  <Star key={j} size={14} color="#d4af50" fill="#d4af50" />
+                  <Star key={j} size={14} color="#C9A84C" fill="#C9A84C" />
                 ))}
               </div>
               <p className="text-sm md:text-base leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.65)' }}>
@@ -128,7 +127,7 @@ export default function TestimonialsSection() {
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold"
-                  style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)', color: '#071a0d' }}
+                  style={{ background: 'linear-gradient(135deg, #C9A84C, #8B6914)', color: '#0a1628' }}
                 >
                   {t.name.charAt(0)}
                 </div>

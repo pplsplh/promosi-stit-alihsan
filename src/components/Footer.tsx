@@ -65,13 +65,13 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <div
                 className="w-10 h-10 flex items-center justify-center rounded-full"
-                style={{ background: 'linear-gradient(135deg, #d4af50, #a07830)' }}
+                style={{ background: 'linear-gradient(135deg, #C9A84C, #8B6914)' }}
               >
-                <GraduationCap size={20} color="#071a0d" strokeWidth={2.5} />
+                <GraduationCap size={20} color="#0a1628" strokeWidth={2.5} />
               </div>
               <div>
                 <div className="text-white font-bold text-sm leading-tight">STIT Al-Ihsan</div>
-                <div className="text-xs" style={{ color: '#d4af50' }}>Baleendah, Bandung</div>
+                <div className="text-xs" style={{ color: '#C9A84C' }}>Baleendah, Bandung</div>
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>
@@ -125,21 +125,21 @@ export default function Footer() {
             <h4 className="text-white font-bold text-sm mb-4">Kontak</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5">
-                <MapPin size={14} color="#d4af50" className="mt-0.5 shrink-0" />
+                <MapPin size={14} color="#C9A84C" className="mt-0.5 shrink-0" />
                 <span className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
                   Jl. Adipati Agung No. 40 Baleendah, Kabupaten Bandung
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone size={14} color="#d4af50" className="shrink-0" />
+                <Phone size={14} color="#C9A84C" className="shrink-0" />
                 <span className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>(031) 309-1234</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Mail size={14} color="#d4af50" className="shrink-0" />
+                <Mail size={14} color="#C9A84C" className="shrink-0" />
                 <span className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>info@stit-alihsan.ac.id</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Clock size={14} color="#d4af50" className="shrink-0" />
+                <Clock size={14} color="#C9A84C" className="shrink-0" />
                 <span className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>Sen - Sab: 08.00 - 16.00 WIB</span>
               </li>
             </ul>
@@ -158,7 +158,7 @@ export default function Footer() {
             onClick={scrollToTop}
             className="flex items-center gap-2 text-xs font-medium transition-colors duration-200"
             style={{ color: 'rgba(255,255,255,0.3)' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#d4af50')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
           >
             <ArrowUp size={12} />

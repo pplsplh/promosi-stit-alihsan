@@ -45,7 +45,6 @@ const programs = [
 ];
 
 const CARD_ANIM = ['animate-on-scroll-left', 'animate-on-scroll-right'];
-
 export default function ProgramsSection() {
   const ref = useScrollAnimation();
 
@@ -99,7 +98,6 @@ export default function ProgramsSection() {
           borderRadius: '50%',
         }}
       />
-
       <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16 animate-on-scroll">
@@ -187,7 +185,7 @@ export default function ProgramsSection() {
                 <a
                   href="#"
                   className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group"
-                  style={{ color: '#d4af50' }}
+                  style={{ color: '#C9A84C' }}
                   onMouseEnter={(e) => (e.currentTarget.style.gap = '12px')}
                   onMouseLeave={(e) => (e.currentTarget.style.gap = '8px')}
                 >

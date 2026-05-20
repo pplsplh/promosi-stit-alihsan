@@ -39,7 +39,7 @@ const news = [
 const categoryColors: Record<string, string> = {
   Akademik: '#1a7a50',
   Prestasi: '#28a745',
-  Kegiatan: '#d4af50',
+  Kegiatan: '#C9A84C',
 };
 
 const CARD_ANIM = ['animate-on-scroll-left', 'animate-on-scroll', 'animate-on-scroll-right'];
@@ -82,20 +82,20 @@ export default function NewsSection() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
               style={{ background: 'rgba(212,175,80,0.1)', border: '1px solid rgba(212,175,80,0.25)' }}
             >
-              <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#d4af50' }}>
+              <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#C9A84C' }}>
                 Berita & Kegiatan
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
               Informasi
               <br />
-              <span style={{ color: '#d4af50' }}>Terbaru</span>
+              <span style={{ color: '#C9A84C' }}>Terbaru</span>
             </h2>
           </div>
           <a
             href="#"
             className="inline-flex items-center gap-2 mt-4 md:mt-0 text-sm font-semibold transition-all duration-300 group"
-            style={{ color: '#d4af50' }}
+            style={{ color: '#C9A84C' }}
           >
             Lihat Semua Berita
             <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -137,7 +137,7 @@ export default function NewsSection() {
                 <div
                   className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-bold"
                   style={{
-                    background: categoryColors[item.category] || '#d4af50',
+                    background: categoryColors[item.category] || '#C9A84C',
                     color: item.category === 'Kegiatan' ? '#071a0d' : '#ffffff',
                   }}
                 >
@@ -146,7 +146,7 @@ export default function NewsSection() {
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-1.5 mb-2.5">
-                  <Calendar size={12} color="#d4af50" />
+                  <Calendar size={12} color="#C9A84C" />
                   <span className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{item.date}</span>
                 </div>
                 <h3 className="text-white font-bold text-sm md:text-base mb-2 leading-snug line-clamp-2">

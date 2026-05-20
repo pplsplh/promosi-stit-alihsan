@@ -13,7 +13,6 @@ const PARTICLES = [
   { id: 8, x: 88, y: 88, size: 2,   dur: 10, delay: 0.4 },
   { id: 9, x: 12, y: 40, size: 1.5, dur: 8,  delay: 3   },
 ];
-
 export default function CTASection() {
   const ref = useScrollAnimation();
 
@@ -63,17 +62,17 @@ export default function CTASection() {
           <div
             className="w-16 h-16 mx-auto mb-8 rounded-2xl flex items-center justify-center"
             style={{
-              background: 'linear-gradient(135deg, #d4af50, #a07830)',
+              background: 'linear-gradient(135deg, #C9A84C, #8B6914)',
               boxShadow: '0 0 40px rgba(212,175,80,0.3)',
             }}
           >
-            <GraduationCap size={28} color="#071a0d" />
+            <GraduationCap size={28} color="#0a1628" />
           </div>
 
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Siap Memulai Perjalanan
             <br />
-            <span style={{ color: '#d4af50' }}>Akademik Anda?</span>
+            <span style={{ color: '#C9A84C' }}>Akademik Anda?</span>
           </h2>
 
           <p className="text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
@@ -86,8 +85,8 @@ export default function CTASection() {
               href="#"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-300"
               style={{
-                background: 'linear-gradient(135deg, #d4af50, #a07830)',
-                color: '#071a0d',
+                background: 'linear-gradient(135deg, #C9A84C, #8B6914)',
+                color: '#0a1628',
                 boxShadow: '0 4px 30px rgba(212,175,80,0.35)',
               }}
               onMouseEnter={(e) => {
@@ -108,7 +107,7 @@ export default function CTASection() {
               style={{ background: 'transparent', color: '#ffffff', border: '1.5px solid rgba(212,175,80,0.5)' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'rgba(212,175,80,0.1)';
-                e.currentTarget.style.borderColor = '#d4af50';
+                e.currentTarget.style.borderColor = '#C9A84C';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
@@ -130,7 +129,7 @@ export default function CTASection() {
               { label: 'Gelombang 3', value: 'Jul - Agu 2025' },
             ].map((g) => (
               <div key={g.label} className="text-center">
-                <div className="text-sm font-bold" style={{ color: '#d4af50' }}>{g.label}</div>
+                <div className="text-sm font-bold" style={{ color: '#C9A84C' }}>{g.label}</div>
                 <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{g.value}</div>
               </div>
             ))}
