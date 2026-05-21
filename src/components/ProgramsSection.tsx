@@ -18,6 +18,7 @@ const programs = [
     name: 'Pendidikan Guru Madrasah Ibtidaiyah',
     shortName: 'PGMI',
     degree: 'S1',
+    waText: 'Halo%2C%20saya%20ingin%20informasi%20tentang%20prodi%20PGMI%20STIT%20Al-Ihsan',
     description:
       'Program studi yang mempersiapkan tenaga pendidik kelas MI (Madrasah Ibtidaiyah) yang profesional dengan penguasaan ilmu keislaman, pedagogik, dan keterampilan mengajar yang mumpuni.',
     highlights: [
@@ -32,6 +33,7 @@ const programs = [
     name: 'Manajemen Pendidikan Islam',
     shortName: 'MPI',
     degree: 'S1',
+    waText: 'Halo%2C%20saya%20ingin%20informasi%20tentang%20prodi%20MPI%20STIT%20Al-Ihsan',
     description:
       'Program studi yang mencetak pengelola lembaga pendidikan Islam yang handal, mampu memimpin madrasah, pesantren, dan institusi pendidikan Islam lainnya.',
     highlights: [
@@ -135,6 +137,7 @@ export default function ProgramsSection() {
                   <img
                     src={prog.image}
                     alt={prog.name}
+                    loading="lazy"
                     className="w-full h-56 md:h-72 object-cover"
                   />
                   <div
@@ -179,13 +182,15 @@ export default function ProgramsSection() {
                 </div>
 
                 <a
-                  href="#"
+                  href={`https://wa.me/6282135402248?text=${prog.waText}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group"
                   style={{ color: '#C9A84C' }}
                   onMouseEnter={(e) => (e.currentTarget.style.gap = '12px')}
                   onMouseLeave={(e) => (e.currentTarget.style.gap = '8px')}
                 >
-                  Selengkapnya
+                  Tanya via WhatsApp
                   <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               </div>

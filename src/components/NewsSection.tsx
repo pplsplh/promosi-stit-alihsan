@@ -1,4 +1,4 @@
-import { Calendar, ArrowRight } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const PARTICLES = [
@@ -30,7 +30,7 @@ const news = [
   {
     category: 'Kegiatan',
     title: 'NAKAMAKRAB: Semarak Malam Keakraban Mahasiswa',
-    excerpt: '"Wherever you go, STIT Al-Ihsan still your home!", yang mengindikasikan bahwa ini adalah acara internal kampus untuk mempererat tali persaudaraan, team building, atau penyambutan mahasiswa baru/reuni alumni.',
+    excerpt: 'Malam Keakraban (NAKAMAKRAB) berlangsung meriah pada 17–18 Januari 2026. Ratusan mahasiswa berkumpul dalam sesi team building, penampilan seni, dan kebersamaan yang memperkuat ukhuwah antar angkatan.',
     date: '17-18 Januari 2026',
     image: '/image/kegiatan-nakamakrab.jpg',
   },
@@ -88,22 +88,13 @@ export default function NewsSection() {
               <span style={{ color: '#C9A84C' }}>Terbaru</span>
             </h2>
           </div>
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 mt-4 md:mt-0 text-sm font-semibold transition-all duration-300 group"
-            style={{ color: '#C9A84C' }}
-          >
-            Lihat Semua Berita
-            <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
         </div>
 
         {/* News cards */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {news.map((item, i) => (
-            <a
+            <div
               key={i}
-              href="#"
               className={`${CARD_ANIM[i]} group rounded-xl overflow-hidden transition-all duration-300`}
               style={{
                 background: 'rgba(212,175,80,0.03)',
@@ -124,6 +115,7 @@ export default function NewsSection() {
                 <img
                   src={item.image}
                   alt={item.title}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div
@@ -152,7 +144,7 @@ export default function NewsSection() {
                   {item.excerpt}
                 </p>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </div>
