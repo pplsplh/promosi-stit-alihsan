@@ -42,7 +42,7 @@ export default function AboutSection() {
       {PARTICLES.map((p) => (
         <div
           key={p.id}
-          className="absolute rounded-full pointer-events-none"
+          className="particle absolute rounded-full pointer-events-none"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
@@ -102,7 +102,6 @@ export default function AboutSection() {
               <img
                 src="/image/about-kampus.jpg"
                 alt="STIT Al-Ihsan Kampus"
-                loading="lazy"
                 className="w-full h-64 md:h-80 object-cover mix-blend-luminosity opacity-60"
               />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(11,42,26,0.7), rgba(212,175,80,0.1))' }} />
@@ -116,7 +115,7 @@ export default function AboutSection() {
                   </div>
                   <div>
                     <div className="text-white font-bold text-sm">Terakreditasi BAN-PT</div>
-                    <div className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>Sekolah Tinggi Ilmu Tarbiyah</div>
+                    <div className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>Perguruan Tinggi Swasta Islam</div>
                   </div>
                 </div>
               </div>

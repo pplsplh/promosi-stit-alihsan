@@ -18,6 +18,7 @@ const programs = [
     name: 'Pendidikan Guru Madrasah Ibtidaiyah',
     shortName: 'PGMI',
     degree: 'S1',
+    url: 'https://pgmi.stitalihsan.ac.id/public/',
     waText: 'Halo%2C%20saya%20ingin%20informasi%20tentang%20prodi%20PGMI%20STIT%20Al-Ihsan',
     description:
       'Program studi yang mempersiapkan tenaga pendidik kelas MI (Madrasah Ibtidaiyah) yang profesional dengan penguasaan ilmu keislaman, pedagogik, dan keterampilan mengajar yang mumpuni.',
@@ -33,6 +34,7 @@ const programs = [
     name: 'Manajemen Pendidikan Islam',
     shortName: 'MPI',
     degree: 'S1',
+    url: 'https://mpi.stitalihsan.ac.id/',
     waText: 'Halo%2C%20saya%20ingin%20informasi%20tentang%20prodi%20MPI%20STIT%20Al-Ihsan',
     description:
       'Program studi yang mencetak pengelola lembaga pendidikan Islam yang handal, mampu memimpin madrasah, pesantren, dan institusi pendidikan Islam lainnya.',
@@ -42,7 +44,7 @@ const programs = [
       'Praktik manajemen di lembaga pendidikan',
       'Kerjasama dengan pondok pesantren',
     ],
-    image: '/image/program-mpi.jpg',
+    image: '/image/program-mpi-2.jpg',
   },
 ];
 
@@ -61,7 +63,7 @@ export default function ProgramsSection() {
       {PARTICLES.map((p) => (
         <div
           key={p.id}
-          className="absolute rounded-full pointer-events-none"
+          className="particle absolute rounded-full pointer-events-none"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
@@ -121,15 +123,47 @@ export default function ProgramsSection() {
 
         {/* Program cards */}
         <div className="space-y-8 md:space-y-12">
-          {programs.map((prog, idx) => (
-            <div
+          {programs.map((prog, idx) => {
+            const CardWrapper = prog.url ? 'a' : 'div';
+            const wrapperProps = prog.url
+              ? { href: prog.url, target: '_blank', rel: 'noopener noreferrer' }
+              : {};
+            return (
+            <CardWrapper
               key={prog.shortName}
-              className={`${CARD_ANIM[idx]} grid md:grid-cols-2 gap-6 md:gap-10 items-center rounded-2xl overflow-hidden`}
+              {...wrapperProps}
+              className={`${CARD_ANIM[idx]} grid md:grid-cols-2 gap-6 md:gap-10 items-center rounded-2xl overflow-hidden select-none`}
               style={{
                 background: 'rgba(212,175,80,0.03)',
                 border: '1px solid rgba(212,175,80,0.1)',
                 transitionDelay: `${idx * 0.15}s`,
+                transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                cursor: prog.url ? 'pointer' : 'default',
+                display: 'grid',
+                textDecoration: 'none',
               }}
+              onMouseEnter={prog.url ? (e: React.MouseEvent<HTMLElement>) => {
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.35), 0 0 0 1px rgba(212,175,80,0.25)';
+              } : undefined}
+              onMouseLeave={prog.url ? (e: React.MouseEvent<HTMLElement>) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              } : undefined}
+              onMouseDown={prog.url ? (e: React.MouseEvent<HTMLElement>) => {
+                e.currentTarget.style.transform = 'translateY(-2px) scale(0.98)';
+              } : undefined}
+              onMouseUp={prog.url ? (e: React.MouseEvent<HTMLElement>) => {
+                e.currentTarget.style.transform = 'translateY(-6px)';
+              } : undefined}
+              onTouchStart={prog.url ? (e: React.TouchEvent<HTMLElement>) => {
+                e.currentTarget.style.transform = 'scale(0.97)';
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
+              } : undefined}
+              onTouchEnd={prog.url ? (e: React.TouchEvent<HTMLElement>) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              } : undefined}
             >
               {/* Image side */}
               <div className={`relative p-4 md:p-0 ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
@@ -137,7 +171,7 @@ export default function ProgramsSection() {
                   <img
                     src={prog.image}
                     alt={prog.name}
-                    loading="lazy"
+                    loading="lazy" decoding="async"
                     className="w-full h-56 md:h-72 object-cover"
                   />
                   <div
@@ -194,8 +228,9 @@ export default function ProgramsSection() {
                   <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               </div>
-            </div>
-          ))}
+            </CardWrapper>
+            );
+          })}
         </div>
       </div>
     </section>

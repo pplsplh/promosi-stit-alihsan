@@ -106,3 +106,23 @@
   opacity: 1;
   transform: scale(1) translateY(0);
 }
+
+/* Kurangi partikel di mobile — sembunyikan partikel ke-5 dst */
+@media (max-width: 768px) {
+  .particle:nth-child(n+5) { display: none; }
+}
+
+/* Semua gambar default pakai gpu layer untuk smooth rendering */
+img {
+  will-change: auto;
+}
+
+/* Reduce motion untuk user yang prefer */
+@media (prefers-reduced-motion: reduce) {
+  .particle { animation: none !important; }
+  .animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right, .animate-on-scroll-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

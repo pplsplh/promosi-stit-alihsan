@@ -2,16 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { GraduationCap, BookOpen, Star, ChevronDown, Menu, X } from 'lucide-react';
 import { WA_URL, CTA_PRIMARY_LABEL, CTA_NAV_LABEL } from '../config';
 import { useCountUp } from '../hooks/useCountUp';
+import { useIsMobile } from '../hooks/useIsMobile';
 import { animate, stagger, splitText } from 'animejs';
 
-const PARTICLES = Array.from({ length: 24 }, (_, i) => ({
-  id: i,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  size: Math.random() * 3 + 1,
-  duration: Math.random() * 8 + 6,
-  delay: Math.random() * 5,
+const PARTICLES_DESKTOP = Array.from({ length: 24 }, (_, i) => ({
+  id: i, x: Math.random() * 100, y: Math.random() * 100,
+  size: Math.random() * 3 + 1, duration: Math.random() * 8 + 6, delay: Math.random() * 5,
 }));
+const PARTICLES_MOBILE = PARTICLES_DESKTOP.slice(0, 6);
 
 const GEOMETRIC_SHAPES = [
   { id: 1, type: 'star8', size: 120, x: 8, y: 12, opacity: 0.08, rotate: 15 },
@@ -110,7 +108,8 @@ export default function HeroSection() {
   const animFrameRef = useRef<number>(0);
   const timeRef = useRef(0);
   const isVisibleRef = useRef(true);
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const isMobile = useIsMobile();
+  const particles = isMobile ? PARTICLES_MOBILE : PARTICLES_DESKTOP;
 
   useEffect(() => {
     // split "Sekolah Tinggi Ilmu" per karakter
@@ -302,7 +301,7 @@ export default function HeroSection() {
       ))}
 
       {/* Animated particles */}
-      {PARTICLES.map((p) => (
+      {particles.map((p) => (
         <div
           key={p.id}
           className="absolute rounded-full pointer-events-none"
@@ -559,24 +558,6 @@ export default function HeroSection() {
         style={{ background: 'linear-gradient(to bottom, transparent, rgba(11,42,26,0.6))' }}
       />
 
-      <style>{`
-        @keyframes fadeInDown {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes floatParticle {
-          from { transform: translateY(0px) translateX(0px); opacity: 0.3; }
-          to { transform: translateY(-30px) translateX(15px); opacity: 0.8; }
-        }
-        @keyframes bounceY {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(6px); }
-        }
-      `}</style>
     </div>
   );
 }

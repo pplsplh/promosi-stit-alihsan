@@ -27,7 +27,7 @@ export default function CTASection() {
       {PARTICLES.map((p) => (
         <div
           key={p.id}
-          className="absolute rounded-full pointer-events-none"
+          className="particle absolute rounded-full pointer-events-none"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,

@@ -58,7 +58,7 @@ export default function NewsSection() {
       {PARTICLES.map((p) => (
         <div
           key={p.id}
-          className="absolute rounded-full pointer-events-none"
+          className="particle absolute rounded-full pointer-events-none"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
@@ -115,7 +115,7 @@ export default function NewsSection() {
                 <img
                   src={item.image}
                   alt={item.title}
-                  loading="lazy"
+                  loading="lazy" decoding="async"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div
